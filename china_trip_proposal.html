@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our China Adventure — Autumn 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --paper: #fdf6ec;
+    --gold: #c9993a;
+    --red: #c0392b;
+    --muted: #7a6a55;
+    --light: #f0e8d8;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: center; gap: 2rem;
+    padding: 1rem 2rem;
+    background: rgba(253, 246, 236, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201,153,58,0.2);
+  }
+  nav a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 500; transition: color 0.2s;
+  }
+  nav a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 6rem 2rem 4rem;
+    background: var(--ink);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Zhangjiajie_National_Forest_Park_-_Zhangjiajiefoto.com_002.jpg/1280px-Zhangjiajie_National_Forest_Park_-_Zhangjiajiefoto.com_002.jpg');
+    background-size: cover; background-position: center;
+    opacity: 0.45;
+    animation: slowzoom 20s ease-in-out infinite alternate;
+  }
+  @keyframes slowzoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(26,18,8,0.2) 0%, rgba(26,18,8,0.7) 100%);
+  }
+  .hero-content { position: relative; z-index: 2; text-align: center; max-width: 720px; }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+    animation: fadein 1s ease both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    color: var(--white); line-height: 1.1;
+    animation: fadein 1s 0.2s ease both;
+  }
+  .hero h1 em { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    margin-top: 1.4rem; font-size: 1.05rem; color: rgba(255,255,255,0.75);
+    font-weight: 300; line-height: 1.7;
+    animation: fadein 1s 0.4s ease both;
+  }
+  .hero-badges {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    margin-top: 2rem; animation: fadein 1s 0.6s ease both;
+  }
+  .badge {
+    padding: 0.4rem 1rem; border: 1px solid rgba(201,153,58,0.5);
+    border-radius: 2rem; font-size: 0.75rem; color: var(--gold);
+    letter-spacing: 0.08em;
+  }
+  .hero-scroll {
+    margin-top: 3rem; animation: fadein 1s 0.9s ease both;
+  }
+  .scroll-btn {
+    display: inline-block; padding: 0.85rem 2.2rem;
+    background: var(--gold); color: var(--ink);
+    text-decoration: none; font-weight: 500; font-size: 0.85rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border-radius: 2px; transition: all 0.25s;
+  }
+  .scroll-btn:hover { background: #e0b04a; transform: translateY(-2px); }
+
+  @keyframes fadein { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    color: var(--ink); line-height: 1.2; margin-bottom: 1rem;
+  }
+  .section-title em { color: var(--red); font-style: italic; }
+  .section-desc { color: var(--muted); font-size: 1rem; line-height: 1.8; max-width: 560px; }
+  hr.divider {
+    border: none; border-top: 1px solid rgba(201,153,58,0.25);
+    margin: 1.5rem 0 2.5rem;
+  }
+
+  /* ── ROUTES ── */
+  #routes { background: var(--paper); }
+  .routes-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem;
+  }
+  @media (max-width: 700px) { .routes-grid { grid-template-columns: 1fr; } }
+
+  .route-card {
+    border: 1px solid rgba(201,153,58,0.2);
+    border-radius: 4px; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .route-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(26,18,8,0.12); }
+  .route-card-img {
+    height: 220px; background-size: cover; background-position: center;
+    position: relative;
+  }
+  .route-card-img-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.5rem 1.2rem 1rem;
+    background: linear-gradient(transparent, rgba(26,18,8,0.85));
+    color: var(--white);
+    font-family: 'Playfair Display', serif; font-size: 1.4rem;
+  }
+  .route-card-body { padding: 1.4rem; background: var(--white); }
+  .route-tag {
+    display: inline-block; padding: 0.2rem 0.7rem;
+    background: var(--light); color: var(--gold);
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    border-radius: 2px; margin-bottom: 0.8rem;
+  }
+  .route-stops { list-style: none; margin-top: 0.8rem; }
+  .route-stops li {
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--light);
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    font-size: 0.88rem; color: var(--muted); line-height: 1.5;
+  }
+  .route-stops li:last-child { border-bottom: none; }
+  .stop-days {
+    font-size: 0.7rem; font-weight: 500; color: var(--gold);
+    min-width: 50px; padding-top: 0.1rem;
+  }
+
+  /* ── ITINERARY ── */
+  #itinerary { background: var(--light); }
+  .tabs { display: flex; gap: 0; margin-top: 2rem; border-bottom: 2px solid rgba(201,153,58,0.2); }
+  .tab-btn {
+    padding: 0.75rem 1.5rem; background: none; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); border-bottom: 2px solid transparent;
+    margin-bottom: -2px; transition: all 0.2s;
+  }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .tab-content { display: none; margin-top: 2rem; }
+  .tab-content.active { display: block; }
+
+  .timeline { position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 80px; top: 0; bottom: 0;
+    width: 1px; background: rgba(201,153,58,0.25);
+  }
+  .tl-item {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 1.5rem; margin-bottom: 1.5rem; position: relative;
+  }
+  .tl-days {
+    text-align: right; padding-top: 1.1rem; position: relative;
+  }
+  .tl-days::after {
+    content: ''; position: absolute; right: -8px; top: 1.45rem;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--gold); border: 2px solid var(--light);
+    transform: translateX(50%);
+  }
+  .tl-day-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--gold); display: block;
+  }
+  .tl-day-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .tl-card {
+    background: var(--white); border-radius: 4px; overflow: hidden;
+    border: 1px solid rgba(201,153,58,0.15);
+  }
+  .tl-card-img { height: 160px; background-size: cover; background-position: center; }
+  .tl-card-body { padding: 1.2rem 1.4rem; }
+  .tl-card-city {
+    font-family: 'Playfair Display', serif; font-size: 1.2rem;
+    color: var(--ink); margin-bottom: 0.4rem;
+  }
+  .tl-card-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.7; }
+  .tl-highlights { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+  .highlight-chip {
+    padding: 0.2rem 0.6rem; background: var(--light);
+    font-size: 0.7rem; color: var(--muted); border-radius: 2px;
+  }
+
+  /* ── BUDGET ── */
+  #budget { background: var(--ink); color: var(--white); }
+  #budget .section-title { color: var(--white); }
+  #budget .section-desc { color: rgba(255,255,255,0.55); }
+
+  .budget-tabs { display: flex; gap: 0; margin-top: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .budget-tab-btn {
+    padding: 0.7rem 1.4rem; background: none; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); border-bottom: 2px solid transparent;
+    margin-bottom: -1px; transition: all 0.2s;
+  }
+  .budget-tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .budget-tab-content { display: none; margin-top: 2rem; }
+  .budget-tab-content.active { display: block; }
+
+  .budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+  @media (max-width: 700px) { .budget-grid { grid-template-columns: 1fr; } }
+
+  .budget-table { width: 100%; border-collapse: collapse; }
+  .budget-table th {
+    text-align: left; font-size: 0.68rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+    padding: 0 0 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .budget-table td {
+    padding: 0.8rem 0; font-size: 0.88rem; color: rgba(255,255,255,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top;
+  }
+  .budget-table td:last-child { text-align: right; color: var(--gold); font-weight: 500; }
+  .budget-table tr.total td {
+    color: var(--white); font-weight: 500; border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: none; padding-top: 1rem;
+  }
+  .budget-table tr.total td:last-child { font-family: 'Playfair Display', serif; font-size: 1.1rem; }
+
+  .budget-note {
+    margin-top: 1rem; font-size: 0.78rem; color: rgba(255,255,255,0.35);
+    line-height: 1.7; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem;
+  }
+
+  .budget-summary {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(201,153,58,0.2);
+    border-radius: 4px; padding: 1.6rem; display: flex; flex-direction: column; gap: 1.2rem;
+  }
+  .summary-block { }
+  .summary-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 0.3rem; }
+  .summary-value { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); }
+  .summary-value span { font-size: 0.9rem; font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,0.4); margin-left: 0.3rem; }
+  .summary-note { font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-top: 0.2rem; }
+
+  .tips-list { list-style: none; }
+  .tips-list li {
+    display: flex; gap: 0.75rem; align-items: flex-start;
+    padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.84rem; color: rgba(255,255,255,0.6); line-height: 1.6;
+  }
+  .tip-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+
+  /* ── LOGISTICS ── */
+  #logistics { background: var(--paper); }
+  .logistics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+  @media (max-width: 800px) { .logistics-grid { grid-template-columns: 1fr; } }
+
+  .logistic-card {
+    background: var(--white); border: 1px solid rgba(201,153,58,0.15);
+    border-radius: 4px; padding: 1.5rem;
+  }
+  .logistic-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+  .logistic-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.6rem; }
+  .logistic-body { font-size: 0.84rem; color: var(--muted); line-height: 1.8; }
+  .logistic-body strong { color: var(--ink); }
+
+  /* ── CTA ── */
+  #cta {
+    background: var(--red); text-align: center; padding: 5rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  #cta::before {
+    content: '中国';
+    position: absolute; font-size: 22vw; color: rgba(255,255,255,0.05);
+    font-family: serif; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    pointer-events: none; user-select: none;
+  }
+  #cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem); color: var(--white);
+    position: relative; z-index: 1;
+  }
+  #cta p {
+    color: rgba(255,255,255,0.7); margin-top: 0.8rem; font-size: 1rem;
+    position: relative; z-index: 1;
+  }
+  .cta-btn {
+    display: inline-block; margin-top: 2rem;
+    padding: 1rem 2.8rem; background: var(--white); color: var(--red);
+    text-decoration: none; font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border-radius: 2px; transition: all 0.25s;
+    position: relative; z-index: 1;
+  }
+  .cta-btn:hover { background: var(--gold); color: var(--white); }
+
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.3);
+    text-align: center; padding: 1.5rem; font-size: 0.75rem; letter-spacing: 0.08em;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#routes">Routes</a>
+  <a href="#itinerary">Itinerary</a>
+  <a href="#budget">Budget</a>
+  <a href="#logistics">Logistics</a>
+  <a href="#cta">Let's Go</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">✈ Toronto → China · Autumn 2026</p>
+    <h1>Our <em>China</em><br>Adventure</h1>
+    <p class="hero-sub">14 days. Two routes. One unforgettable journey through ancient cities, misty mountains, and winding rivers — together.</p>
+    <div class="hero-badges">
+      <span class="badge">🐼 Chengdu</span>
+      <span class="badge">🏔 Zhangjiajie</span>
+      <span class="badge">🛶 Guilin</span>
+      <span class="badge">🏛 Xi'an</span>
+    </div>
+    <div class="hero-scroll">
+      <a href="#routes" class="scroll-btn">Explore the Trip</a>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTES -->
+<section id="routes">
+  <div class="section-inner">
+    <p class="section-label">Choose Your Adventure</p>
+    <h2 class="section-title">Two Routes, <em>One China</em></h2>
+    <p class="section-desc">Both routes start in Chengdu — the gateway to Sichuan — and each offers a completely different flavour of China. We can pick one, or you can decide! 😄</p>
+    <hr class="divider">
+    <div class="routes-grid">
+
+      <!-- Route A -->
+      <div class="route-card">
+        <div class="route-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Zhangjiajie_National_Forest_Park_-_Zhangjiajiefoto.com_002.jpg/1280px-Zhangjiajie_National_Forest_Park_-_Zhangjiajiefoto.com_002.jpg');">
+          <div class="route-card-img-label">Route A — Nature</div>
+        </div>
+        <div class="route-card-body">
+          <span class="route-tag">🌿 Landscapes & Wonder</span>
+          <p style="font-size:0.88rem; color:var(--muted); line-height:1.7;">Float through karst peaks, walk on glass above a canyon, and watch pandas in the wild. This route is for people who want to be stunned by nature.</p>
+          <ul class="route-stops">
+            <li><span class="stop-days">Days 1–4</span> Chengdu — Panda Base, hotpot, Jinli Street, Leshan Buddha day trip</li>
+            <li><span class="stop-days">Days 5–9</span> Zhangjiajie — Avatar mountains, Glass Bridge, Tianmen Mountain</li>
+            <li><span class="stop-days">Days 10–14</span> Guilin & Yangshuo — Li River cruise, Reed Flute Cave, cycling the countryside</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Route B -->
+      <div class="route-card">
+        <div class="route-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/20090529_Great_Wall_8185.jpg/1280px-20090529_Great_Wall_8185.jpg');">
+          <div class="route-card-img-label">Route B — History</div>
+        </div>
+        <div class="route-card-body">
+          <span class="route-tag">🏛 Culture & Dynasty</span>
+          <p style="font-size:0.88rem; color:var(--muted); line-height:1.7;">Stand before 8,000 silent warriors, bike atop ancient city walls, and walk the Great Wall. This route is for people drawn to history and epic scale.</p>
+          <ul class="route-stops">
+            <li><span class="stop-days">Days 1–4</span> Chengdu — Panda Base, Du Fu Cottage, Sichuan Opera night</li>
+            <li><span class="stop-days">Days 5–9</span> Xi'an — Terracotta Warriors, City Wall, Muslim Quarter street food</li>
+            <li><span class="stop-days">Days 10–14</span> Beijing — Forbidden City, Great Wall, Temple of Heaven, hutongs</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section id="itinerary">
+  <div class="section-inner">
+    <p class="section-label">Day by Day</p>
+    <h2 class="section-title">The <em>Itinerary</em></h2>
+    <p class="section-desc">A detailed look at what each day could look like. Switch between routes below.</p>
+    <hr class="divider">
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('route-a', this)">Route A — Nature</button>
+      <button class="tab-btn" onclick="showTab('route-b', this)">Route B — History</button>
+    </div>
+
+    <!-- ROUTE A TAB -->
+    <div class="tab-content active" id="route-a">
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-days"><span class="tl-day-num">1–4</span><span class="tl-day-label">Days</span></div>
+          <div class="tl-card">
+            <div class="tl-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Chengdu-pandas-d10.jpg/1280px-Chengdu-pandas-d10.jpg');"></div>
+            <div class="tl-card-body">
+              <h3 class="tl-card-city">🐼 Chengdu, Sichuan</h3>
+              <p class="tl-card-desc">Settle into China's most liveable city. Famous for its laid-back pace, fiery cuisine, and the world's most beloved animals. Morning visits to the Panda Base are magical — they're most active at feeding time.</p>
+              <div class="tl-highlights">
+                <span class="highlight-chip">Panda Research Base</span>
+                <span class="highlight-chip">Jinli Ancient Street</span>
+                <span class="highlight-chip">People's Park tea house</span>
+                <span class="highlight-chip">Leshan Giant Buddha (day trip)</span>
+                <span class="highlight-chip">Sichuan hotpot dinner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-days"><span class="tl-day-num">5–9</span><span class="tl-day-label">Days</span></div>
+          <div class="tl-card">
+            <div class="tl-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Zhangjiajie_National_Forest_Park_-_Zhangjiajiefoto.com_002.jpg/1280px-Zhangjiajie_National_Forest_Park_-_Zhangjiajiefoto.com_002.jpg');"></div>
+            <div class="tl-card-body">
+              <h3 class="tl-card-city">🏔 Zhangjiajie, Hunan</h3>
+              <p class="tl-card-desc">The real-world inspiration for Avatar's Hallelujah Mountains. Thousands of sandstone pillars rise dramatically from mist. Two full days in the national park is a must — plus a visit to the world's longest glass bridge.</p>
+              <div class="tl-highlights">
+                <span class="highlight-chip">National Forest Park (2 days)</span>
+                <span class="highlight-chip">Glass Bridge & Canyon</span>
+                <span class="highlight-chip">Tianmen Mountain cable car</span>
+                <span class="highlight-chip">Golden Whip Stream walk</span>
+                <span class="highlight-chip">Bailong Elevator</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-days"><span class="tl-day-num">10–14</span><span class="tl-day-label">Days</span></div>
+          <div class="tl-card">
+            <div class="tl-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Li_River%2C_Guilin%2C_China.jpg/1280px-Li_River%2C_Guilin%2C_China.jpg');"></div>
+            <div class="tl-card-body">
+              <h3 class="tl-card-city">🛶 Guilin & Yangshuo, Guangxi</h3>
+              <p class="tl-card-desc">The scenery of Guilin is what appears on the 20 RMB note for good reason. Cruise the Li River past ancient karst peaks, then escape to Yangshuo's charming village streets and rent bikes to explore the countryside.</p>
+              <div class="tl-highlights">
+                <span class="highlight-chip">Li River cruise (4 hrs)</span>
+                <span class="highlight-chip">Reed Flute Cave</span>
+                <span class="highlight-chip">Elephant Trunk Hill</span>
+                <span class="highlight-chip">Yangshuo cycling</span>
+                <span class="highlight-chip">Moon Hill hike</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ROUTE B TAB -->
+    <div class="tab-content" id="route-b">
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-days"><span class="tl-day-num">1–4</span><span class="tl-day-label">Days</span></div>
+          <div class="tl-card">
+            <div class="tl-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Chengdu-pandas-d10.jpg/1280px-Chengdu-pandas-d10.jpg');"></div>
+            <div class="tl-card-body">
+              <h3 class="tl-card-city">🐼 Chengdu, Sichuan</h3>
+              <p class="tl-card-desc">Begin in China's spicy, soulful capital of Sichuan. See giant pandas in the morning, wander ancient streets at night, and watch the mesmerizing face-changing Sichuan Opera.</p>
+              <div class="tl-highlights">
+                <span class="highlight-chip">Panda Research Base</span>
+                <span class="highlight-chip">Du Fu Thatched Cottage</span>
+                <span class="highlight-chip">Sichuan Opera show</span>
+                <span class="highlight-chip">Kuanzhai Alley</span>
+                <span class="highlight-chip">Mapo tofu dinner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-days"><span class="tl-day-num">5–9</span><span class="tl-day-label">Days</span></div>
+          <div class="tl-card">
+            <div class="tl-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Terracotta_Army%2C_View_of_Pit_1.jpg/1280px-Terracotta_Army%2C_View_of_Pit_1.jpg');"></div>
+            <div class="tl-card-body">
+              <h3 class="tl-card-city">🏛 Xi'an, Shaanxi</h3>
+              <p class="tl-card-desc">China's ancient imperial capital — home to the Terracotta Warriors, one of the world's greatest archaeological discoveries. Bike the 14km city wall, eat your way through the Muslim Quarter, and feel history under every footstep.</p>
+              <div class="tl-highlights">
+                <span class="highlight-chip">Terracotta Warriors (full day)</span>
+                <span class="highlight-chip">Xi'an City Wall cycling</span>
+                <span class="highlight-chip">Muslim Quarter food crawl</span>
+                <span class="highlight-chip">Big Wild Goose Pagoda</span>
+                <span class="highlight-chip">Tang Paradise at night</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-days"><span class="tl-day-num">10–14</span><span class="tl-day-label">Days</span></div>
+          <div class="tl-card">
+            <div class="tl-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/20090529_Great_Wall_8185.jpg/1280px-20090529_Great_Wall_8185.jpg');"></div>
+            <div class="tl-card-body">
+              <h3 class="tl-card-city">🏯 Beijing</h3>
+              <p class="tl-card-desc">End with the capital. Walk the Great Wall at Mutianyu (less crowded, stunning views), get lost in the Forbidden City, and wander old hutong alleyways. Beijing is exhausting and exhilarating in equal measure.</p>
+              <div class="tl-highlights">
+                <span class="highlight-chip">Great Wall at Mutianyu</span>
+                <span class="highlight-chip">Forbidden City</span>
+                <span class="highlight-chip">Temple of Heaven</span>
+                <span class="highlight-chip">Hutong rickshaw tour</span>
+                <span class="highlight-chip">Peking duck dinner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="budget">
+  <div class="section-inner">
+    <p class="section-label">The Numbers</p>
+    <h2 class="section-title">Budget <em>Breakdown</em></h2>
+    <p class="section-desc">Estimated costs per person in Canadian dollars, based on a budget-conscious but comfortable travel style.</p>
+    <hr class="divider" style="border-color: rgba(255,255,255,0.1);">
+
+    <div class="budget-tabs">
+      <button class="budget-tab-btn active" onclick="showBudgetTab('route-a-budget', this)">Route A — Nature</button>
+      <button class="budget-tab-btn" onclick="showBudgetTab('route-b-budget', this)">Route B — History</button>
+    </div>
+
+    <div class="budget-tab-content active" id="route-a-budget">
+      <div class="budget-grid">
+        <div>
+          <table class="budget-table">
+            <thead><tr><th>Category</th><th style="text-align:right">Per Person (CAD)</th></tr></thead>
+            <tbody>
+              <tr><td>✈️ Flights (YYZ–CDU / KWL–YYZ)</td><td>~$1,350</td></tr>
+              <tr><td>🏨 Accommodation (14 nights)</td><td>~$700</td></tr>
+              <tr><td>🚄 Internal transport (HSR + buses)</td><td>~$280</td></tr>
+              <tr><td>🍜 Food & drink</td><td>~$350</td></tr>
+              <tr><td>🎟 Activities & entrance fees</td><td>~$230</td></tr>
+              <tr><td>📋 Visa + travel insurance</td><td>~$180</td></tr>
+              <tr><td>🛍 Shopping & misc buffer</td><td>~$200</td></tr>
+              <tr class="total"><td>Total per person</td><td>~$3,290</td></tr>
+              <tr class="total"><td>Total for two ❤️</td><td>~$6,580</td></tr>
+            </tbody>
+          </table>
+          <p class="budget-note">Estimates based on mid-Oct 2026 travel. Flights via Air Canada or China Eastern. Accommodation: 3-star hotels / boutique guesthouses. Meals: mix of street food, local restaurants, and one or two nicer dinners. Internal travel via China's excellent high-speed rail network.</p>
+        </div>
+        <div>
+          <div class="budget-summary">
+            <div class="summary-block">
+              <p class="summary-label">Per Person</p>
+              <p class="summary-value">$3,290<span>CAD</span></p>
+              <p class="summary-note">Budget-conscious, comfortable</p>
+            </div>
+            <div class="summary-block">
+              <p class="summary-label">Total for Two</p>
+              <p class="summary-value">$6,580<span>CAD</span></p>
+              <p class="summary-note">Flights + hotels + food + activities</p>
+            </div>
+            <div class="summary-block">
+              <p class="summary-label">Daily Spend (per person)</p>
+              <p class="summary-value">~$140<span>CAD/day</span></p>
+              <p class="summary-note">Excludes flights</p>
+            </div>
+          </div>
+          <ul class="tips-list" style="margin-top:1.5rem;">
+            <li><span class="tip-icon">💡</span>Book flights 3–4 months early for best prices. Check Google Flights + Skyscanner.</li>
+            <li><span class="tip-icon">🍜</span>Street food & local restaurants cost $3–8 CAD a meal. Budget adds up slowly.</li>
+            <li><span class="tip-icon">🚄</span>High-speed rail is cheaper and often faster than flying between cities.</li>
+            <li><span class="tip-icon">📱</span>Set up Alipay or WeChat Pay before you go — cash is rarely used.</li>
+            <li><span class="tip-icon">🔒</span>Download a VPN (e.g. ExpressVPN) before leaving Canada.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="budget-tab-content" id="route-b-budget">
+      <div class="budget-grid">
+        <div>
+          <table class="budget-table">
+            <thead><tr><th>Category</th><th style="text-align:right">Per Person (CAD)</th></tr></thead>
+            <tbody>
+              <tr><td>✈️ Flights (YYZ–CDU / PEK–YYZ)</td><td>~$1,250</td></tr>
+              <tr><td>🏨 Accommodation (14 nights)</td><td>~$750</td></tr>
+              <tr><td>🚄 Internal transport (HSR + metro)</td><td>~$220</td></tr>
+              <tr><td>🍜 Food & drink</td><td>~$380</td></tr>
+              <tr><td>🎟 Activities & entrance fees</td><td>~$260</td></tr>
+              <tr><td>📋 Visa + travel insurance</td><td>~$180</td></tr>
+              <tr><td>🛍 Shopping & misc buffer</td><td>~$200</td></tr>
+              <tr class="total"><td>Total per person</td><td>~$3,240</td></tr>
+              <tr class="total"><td>Total for two ❤️</td><td>~$6,480</td></tr>
+            </tbody>
+          </table>
+          <p class="budget-note">Chengdu → Xi'an → Beijing by high-speed rail is one of the great train journeys in Asia. Beijing flights home are often cheaper than secondary airports. Budget includes Great Wall shuttle and Terracotta Warrior entrance (~$25 CAD each).</p>
+        </div>
+        <div>
+          <div class="budget-summary">
+            <div class="summary-block">
+              <p class="summary-label">Per Person</p>
+              <p class="summary-value">$3,240<span>CAD</span></p>
+              <p class="summary-note">Budget-conscious, comfortable</p>
+            </div>
+            <div class="summary-block">
+              <p class="summary-label">Total for Two</p>
+              <p class="summary-value">$6,480<span>CAD</span></p>
+              <p class="summary-note">Flights + hotels + food + activities</p>
+            </div>
+            <div class="summary-block">
+              <p class="summary-label">Daily Spend (per person)</p>
+              <p class="summary-value">~$142<span>CAD/day</span></p>
+              <p class="summary-note">Excludes flights</p>
+            </div>
+          </div>
+          <ul class="tips-list" style="margin-top:1.5rem;">
+            <li><span class="tip-icon">💡</span>Book Terracotta Warriors tickets online in advance — on-site queues are brutal.</li>
+            <li><span class="tip-icon">🧱</span>Go to Mutianyu, not Badaling, for the Great Wall — far fewer crowds.</li>
+            <li><span class="tip-icon">🚄</span>Chengdu to Xi'an is ~3.5 hrs by HSR. Xi'an to Beijing ~4.5 hrs. Very comfortable.</li>
+            <li><span class="tip-icon">🥙</span>Xi'an Muslim Quarter is a food paradise — roujiamo & biangbiang noodles are a must.</li>
+            <li><span class="tip-icon">🔒</span>Download a VPN (e.g. ExpressVPN) before leaving Canada.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGISTICS -->
+<section id="logistics">
+  <div class="section-inner">
+    <p class="section-label">Before You Go</p>
+    <h2 class="section-title">Key <em>Logistics</em></h2>
+    <p class="section-desc">Everything you need to sort before departure from Toronto.</p>
+    <hr class="divider">
+    <div class="logistics-grid">
+      <div class="logistic-card">
+        <div class="logistic-icon">📋</div>
+        <h3 class="logistic-title">Visa</h3>
+        <p class="logistic-body">Canadian citizens need a <strong>Chinese tourist visa (L-visa)</strong>. Apply at the Chinese Consulate in Toronto or via a visa agency. Allow <strong>4–6 weeks</strong>. Fee is approximately <strong>$80–100 CAD</strong>. Bring passport photos and an itinerary.</p>
+      </div>
+      <div class="logistic-card">
+        <div class="logistic-icon">💳</div>
+        <h3 class="logistic-title">Money & Payments</h3>
+        <p class="logistic-body">China is nearly <strong>cashless</strong>. Set up <strong>WeChat Pay or Alipay</strong> and link a Canadian card before you leave. Withdraw some <strong>Chinese Yuan (CNY)</strong> on arrival for small vendors. ATMs are available in major cities.</p>
+      </div>
+      <div class="logistic-card">
+        <div class="logistic-icon">📱</div>
+        <h3 class="logistic-title">VPN & Internet</h3>
+        <p class="logistic-body">Google, Instagram, WhatsApp, and most Western apps are blocked. Download a reliable <strong>VPN before you leave</strong> (ExpressVPN or NordVPN recommended). Get a <strong>China SIM card</strong> at the airport on arrival (China Mobile or China Unicom).</p>
+      </div>
+      <div class="logistic-card">
+        <div class="logistic-icon">🚄</div>
+        <h3 class="logistic-title">Getting Around</h3>
+        <p class="logistic-body">China's <strong>high-speed rail (HSR)</strong> is world-class — fast, affordable, and punctual. Book tickets on <strong>Trip.com</strong> or the <strong>12306 app</strong> (requires a Chinese ID workaround — Trip.com is easier for foreigners). Metro systems in each city are excellent.</p>
+      </div>
+      <div class="logistic-card">
+        <div class="logistic-icon">🏥</div>
+        <h3 class="logistic-title">Health & Insurance</h3>
+        <p class="logistic-body">Get <strong>comprehensive travel insurance</strong> including medical evacuation (e.g. Blue Cross, Manulife). No mandatory vaccinations, but Hepatitis A & B and Typhoid are recommended. Bring any prescription medications — pharmacies are plentiful but labelling is in Chinese.</p>
+      </div>
+      <div class="logistic-card">
+        <div class="logistic-icon">🌤</div>
+        <h3 class="logistic-title">Best Time to Go</h3>
+        <p class="logistic-body"><strong>Autumn (Sep–Nov)</strong> is ideal — comfortable temperatures across all cities, beautiful foliage in Zhangjiajie, and fewer tourists than summer. Avoid <strong>Golden Week (Oct 1–7)</strong> — the whole country travels and sites are packed. Aim for late October.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <h2>So... are we doing this? 🥰</h2>
+  <p>14 days. Two of us. One incredible country. Let's make it happen.</p>
+  <a href="#routes" class="cta-btn">Yes, let's go to China!</a>
+</section>
+
+<footer>
+  Made with ❤️ as a trip proposal · Autumn 2026 · Toronto → China
+</footer>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+  function showBudgetTab(id, btn) {
+    document.querySelectorAll('.budget-tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.budget-tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
